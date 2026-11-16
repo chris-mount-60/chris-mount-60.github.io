@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hidden by the Curve of the Earth</title>
+<style>
+  body {
+    margin: 0;
+    background: #fff;
+    color: #222;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.45;
+  }
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 16px 40px;
+  }
+  h1 { font-size: 1.5rem; font-weight: normal; margin: 0 0 6px; }
+  p.lead { margin: 0 0 18px; }
+  svg { display: block; width: 100%; height: auto; border: 1px solid #ccc; background: #fff; }
+  .controls { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 18px 0; }
+  .control label { display: flex; justify-content: space-between; gap: 12px; }
+  .control input[type=range] { width: 100%; }
+  table { border-collapse: collapse; margin-top: 6px; }
+  td { padding: 4px 16px 4px 0; vertical-align: top; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .note { font-size: 0.9rem; color: #555; margin-top: 18px; }
+  @media (min-width: 640px) { .controls { grid-template-columns: 1fr 1fr; gap: 10px 32px; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Hidden by the curve of the Earth</h1>
+  <p class="lead">You stand at the edge of a calm sea and look at a tall tower across the water. Move the tower farther away, or raise your eye above the water, and watch how much of the tower is hidden below your line of sight.</p>
+
+  <svg id="scene" viewBox="0 0 860 420" role="img" aria-label="Side view of the sea, your line of sight, and a tower whose lower part is hidden by the curve of the Earth"></svg>
+
+  <div class="controls">
+    <div class="control">
+      <label for="dist"><span>Distance to the tower, <i>d</i></span><span id="distOut"></span></label>
+      <input type="range" id="dist" min="0" max="30" step="0.1" value="20">
+    </div>
+    <div class="control">
+      <label for="eye"><span>Height of your eye above the water, <i>H</i></span><span id="eyeOut"></span></label>
+      <input type="range" id="eye" min="0" max="100" step="0.5" value="0">
+    </div>
+  </div>
+
+  <table>
+    <tr><td>Distance to your horizon</td><td class="num" id="horizonOut"></td></tr>
+    <tr><td>Hidden part of the tower (exact, for a spherical Earth)</td><td class="num" id="exactOut"></td></tr>
+    <tr><td>Hidden part of the tower (rule: 8 inches per mile squared)</td><td class="num" id="ruleOut"></td></tr>
+  </table>
+
+  <p class="note">The picture is not to scale: heights are drawn about <span id="exagOut"></span> times larger than distances, so that the curve is visible. The numbers are computed at full scale with an Earth radius of 3959 miles, and they ignore the slight bending of light by the air. With your eye above the water, the rule is applied twice: your line of sight first drops to the horizon, a distance <i>D</i> away, and the tower is then hidden by 8(<i>d</i> &minus; <i>D</i>)<sup>2</sup> inches.</p>
+</main>
+
+<script>
+(function () {
+  const R = 3959;            // radius of the Earth (miles)
+  const FT_PER_MI = 5280;
+  const TOWER_FT = 800;      // height of the tower (feet)
+
+  // Drawing window: x is distance from you (miles), y is height (feet)
+  // measured from the water level directly below you.
+  const W = 860, Hpx = 420;
+  const pad = { left: 50, right: 30, top: 30, bottom: 50 };
+  const xMin = -1.5, xMax = 31.5;
+  const yMin = -650, yMax = 900;
+  const sx = x => pad.left + (x - xMin) / (xMax - xMin) * (W - pad.left - pad.right);
+  const sy = y => Hpx - pad.bottom - (y - yMin) / (yMax - yMin) * (Hpx - pad.top - pad.bottom);
+
+  // Height of the water surface (feet) at distance x (miles), relative to the
+  // horizontal through the water below you: the drop is x^2/(2R) miles.
+  const surface = x => -FT_PER_MI * x * x / (2 * R);
+
+  const svg = document.getElementById('scene');
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (name, attrs, text) => {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text !== undefined) e.textContent = text;
+    svg.appendChild(e);
+    return e;
+  };
+
+  const fmtFt = ft => {
+    if (ft <= 0) return '0 ft (none)';
+    if (ft < 10) return (ft * 12).toFixed(1) + ' in';
+    return ft.toFixed(1) + ' ft';
+  };
+
+  function draw() {
+    const d = parseFloat(document.getElementById('dist').value);
+    const Hft = parseFloat(document.getElementById('eye').value);
+    const Hmi = Hft / FT_PER_MI;
+
+    // Horizon distance along the line of sight: D = sqrt(2RH + H^2) (miles).
+    const D = Math.sqrt(2 * R * Hmi + Hmi * Hmi);
+
+    // Exact hidden height on a sphere, with d measured along the surface.
+    // Your line of sight touches the sphere at angle alpha from you; the tower is at angle theta.
+    const alpha = Math.acos(R / (R + Hmi));
+    const theta = d / R;
+    const exactFt = theta > alpha ? (R / Math.cos(theta - alpha) - R) * FT_PER_MI : 0;
+
+    // Rule of thumb, applied after your horizon: 8 (d - D)^2 inches.
+    const ruleFt = d > D ? 8 * (d - D) * (d - D) / 12 : 0;
+
+    // Sight line in the drawing: from your eye (0, H), tangent to the surface at x = D.
+    const sight = x => Hft - FT_PER_MI * D * x / R;
+
+    // ---- draw ----
+    svg.innerHTML = '';
+
+    // sea
+    let sea = `M ${sx(xMin)} ${sy(yMin)}`;
+    for (let i = 0; i <= 200; i++) {
+      const x = xMin + (xMax - xMin) * i / 200;
+      sea += ` L ${sx(x)} ${sy(surface(x))}`;
+    }
+    sea += ` L ${sx(xMax)} ${sy(yMin)} Z`;
+    el('path', { d: sea, fill: '#dbe9f6', stroke: 'none' });
+    let shore = '';
+    for (let i = 0; i <= 200; i++) {
+      const x = xMin + (xMax - xMin) * i / 200;
+      shore += (i ? ' L ' : 'M ') + sx(x) + ' ' + sy(surface(x));
+    }
+    el('path', { d: shore, fill: 'none', stroke: '#2b5d8a', 'stroke-width': 2 });
+
+    // distance ticks along the bottom
+    for (let m = 0; m <= 30; m += 5) {
+      el('line', { x1: sx(m), y1: Hpx - pad.bottom + 6, x2: sx(m), y2: Hpx - pad.bottom + 12, stroke: '#666' });
+      el('text', { x: sx(m), y: Hpx - pad.bottom + 28, 'text-anchor': 'middle', 'font-size': 13, fill: '#444' }, m + ' mi');
+    }
+
+    // tower: base on the surface at distance d, standing straight up
+    const base = surface(d);
+    const top = base + TOWER_FT;
+    const hiddenTop = Math.min(top, Math.max(base, sight(d)));
+    const tw = 14;
+    if (hiddenTop > base) {
+      el('rect', { x: sx(d) - tw / 2, y: sy(hiddenTop), width: tw, height: sy(base) - sy(hiddenTop),
+                   fill: '#c9c9c9', stroke: '#888', 'stroke-dasharray': '3 2' });
+    }
+    if (top > hiddenTop) {
+      el('rect', { x: sx(d) - tw / 2, y: sy(top), width: tw, height: sy(hiddenTop) - sy(top),
+                   fill: '#555', stroke: '#333' });
+    }
+
+    // line of sight
+    el('line', { x1: sx(0), y1: sy(Hft), x2: sx(xMax), y2: sy(sight(xMax)),
+                 stroke: '#b03030', 'stroke-width': 1.5, 'stroke-dasharray': '6 4' });
+
+    // horizon point (only when your eye is above the water)
+    if (D > 0.05) {
+      el('circle', { cx: sx(D), cy: sy(surface(D)), r: 3.5, fill: '#2b5d8a' });
+      el('text', { x: sx(D), y: sy(surface(D)) + 18, 'text-anchor': 'middle', 'font-size': 13, fill: '#2b5d8a' }, 'horizon');
+    }
+
+    // you
+    el('line', { x1: sx(0), y1: sy(0), x2: sx(0), y2: sy(Hft), stroke: '#333', 'stroke-width': 2 });
+    el('circle', { cx: sx(0), cy: sy(Hft), r: 4, fill: '#222' });
+    el('text', { x: sx(0) - 8, y: sy(Hft) - 10, 'text-anchor': 'middle', 'font-size': 14, fill: '#222' }, 'you');
+
+    // label the hidden part
+    if (hiddenTop > base) {
+      el('text', { x: sx(d) + tw, y: (sy(base) + sy(hiddenTop)) / 2 + 5, 'font-size': 13, fill: '#555' }, 'hidden');
+    }
+
+    // readouts
+    document.getElementById('distOut').textContent = d.toFixed(1) + ' mi';
+    document.getElementById('eyeOut').textContent = Hft.toFixed(1) + ' ft';
+    document.getElementById('horizonOut').textContent = Hft > 0 ? D.toFixed(2) + ' mi' : '0 mi (your eye is at the water)';
+    document.getElementById('exactOut').textContent = fmtFt(exactFt);
+    document.getElementById('ruleOut').textContent = fmtFt(ruleFt);
+
+    // vertical exaggeration of the drawing
+    const pxPerFtX = (W - pad.left - pad.right) / ((xMax - xMin) * FT_PER_MI);
+    const pxPerFtY = (Hpx - pad.top - pad.bottom) / (yMax - yMin);
+    document.getElementById('exagOut').textContent = Math.round(pxPerFtY / pxPerFtX / 10) * 10;
+  }
+
+  document.getElementById('dist').addEventListener('input', draw);
+  document.getElementById('eye').addEventListener('input', draw);
+  draw();
+})();
+</script>
+</body>
+</html>
