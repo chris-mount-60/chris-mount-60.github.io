@@ -1,14 +1,17 @@
 ---
-layout: archive
-title: "Portfolio"
-permalink: /portfolio/
-author_profile: true
+layout: single
+title: "Projects"
+permalink: /projects/
+author_profile: false
+portfolio_page: true
+redirect_from:
+  - /portfolio/
 ---
 
-{% include base_path %}
-
-
-{% for post in site.portfolio %}
-  {% include archive-single.html %}
-{% endfor %}
-
+<p><a href="/research/">Research</a></p>
+<h2>One path, refined</h2>
+<p>A bridge starts with its endpoints pinned. Click between them to sample the path at a new time. Each click retains what earlier queries revealed, including the two ends of any excursion they located.</p>
+<p><a href="/sticky-bm-bridge-presentation/refine/">Query a sticky Brownian bridge</a></p>
+<h2>The zero set and local time</h2>
+<p>Follow one reflected Brownian path as the time mesh gets finer. Watch how the approximations to its zero set and its local time change together.</p>
+<p><a href="/sticky-bm-bridge-presentation/zero-set/">Explore the zero set</a></p>

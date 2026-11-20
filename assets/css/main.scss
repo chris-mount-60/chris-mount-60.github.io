@@ -36,3 +36,69 @@
     "layout/archive",
     "layout/sidebar"
 ;
+.mount-portfolio {
+  #main { max-width: 52rem; margin: 2.5rem auto 0; padding-inline: 1.4rem; }
+  .page { float: none; width: 100%; padding: 0; }
+  .page__title {
+    font: normal clamp(2.3rem, 5vw, 3.7rem)/1.1 Georgia, serif;
+    letter-spacing: -.035em;
+    margin: 0 0 1.5rem;
+  }
+  .page__content h2 { margin-top: 2rem; }
+  .page__content > h2:first-child { margin-top: 0; }
+  .page__content p { max-width: 70ch; }
+}
+.mount-profile {
+  display: grid;
+  grid-template-columns: minmax(6rem, 11rem) 1fr;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2.5rem);
+  padding: 1.5rem 0;
+  margin-bottom: 1.5rem;
+  border-block: 1px solid var(--global-border-color);
+  .portrait-space {
+    aspect-ratio: 4/5;
+    display: grid;
+    place-items: center;
+    padding: .6rem;
+    text-align: center;
+    font: italic 1rem/1.35 Georgia, serif;
+    background: rgba(136, 117, 173, .12);
+    border: 1px solid var(--global-border-color);
+  }
+  .academic-role { font-weight: 650; }
+  .contact-block p { margin: 0 0 .65rem; }
+}
+@media (max-width: 36rem) {
+  .mount-profile { grid-template-columns: minmax(5.5rem, 28%) 1fr; }
+  .mount-profile .contact-block { font-size: 1rem; }
+}
+.mount-bibliography li { margin-bottom: .85rem; }
+.mount-portfolio .mount-landscape {
+  display: block;
+  margin: 2rem 0 0;
+  .mount-sky { position: relative; aspect-ratio: 12/5; overflow: hidden; background: #261b46; }
+  img, svg { display: block; position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; }
+  img { object-fit: cover; border-radius: 0; }
+  figcaption {
+    display: flex; justify-content: space-between; align-items: center; gap: .8rem;
+    margin: 0; padding: .8rem 0; font-size: 1rem; text-align: left;
+    color: var(--global-text-color);
+  }
+  button {
+    flex-shrink: 0; padding: .55rem 1rem; min-width: 5.2rem;
+    background: #453478; color: white; border: 0; border-radius: .25rem;
+    font: inherit; font-weight: 600; cursor: pointer;
+  }
+}
+.square-series {
+  position: absolute; right: 0; z-index: 2;
+  display: flex; flex-direction: column; align-items: flex-end;
+  #bisect-square, .series-term {
+    display: block; flex: none; aspect-ratio: 1; margin: 0; padding: 0;
+    border: 0; border-radius: 0; background: #6753a2;
+  }
+  #bisect-square { width: .5in; height: .5in; cursor: pointer; }
+  #bisect-square:focus-visible { outline: 3px solid #ffba58; outline-offset: -4px; }
+  .series-term:nth-of-type(even) { background: #a497d0; }
+}

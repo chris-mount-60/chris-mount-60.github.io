@@ -11,10 +11,17 @@ layout: compress
     {% include head/custom.html %}
   </head>
 
-  <body>
+  <body{% if page.portfolio_page %} class="mount-portfolio"{% endif %}>
 
     {% include browser-upgrade.html %}
     {% include masthead.html %}
+
+    {% if page.square_series %}
+      <div class="square-series">
+        <button type="button" id="bisect-square" title="Add a square with half the side length" aria-label="Add a square with half the side length"></button>
+        <span class="sr-only" role="status" id="square-count"></span>
+      </div>
+    {% endif %}
 
     {{ content }}
 
