@@ -12,6 +12,8 @@ main:
   - title: "Teaching"
     url: /teaching/
     children:
+      - title: Teaching philosophy
+        url: /teaching/philosophy/
       - title: Teaching Projects
         url: /teaching/projects/
 

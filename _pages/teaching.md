@@ -9,7 +9,7 @@ square_series: true
 
 ## Teaching philosophy
 
-Forthcoming.
+[Read my teaching philosophy.](/teaching/philosophy/)
 
 ## Courses taught
 
