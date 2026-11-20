@@ -9,7 +9,24 @@ redirect_from:
 ---
 
 <h2>Research statement</h2>
-<p>Forthcoming.</p>
+<p>I study stochastic processes that model the motion of particles. I am particularly interested in how a particle moves when it encounters a boundary and how two particles move when they come into contact. One example is sticky reflected Brownian motion on the half-line. Away from zero, the particle moves like Brownian motion. Once it reaches zero, it spends a positive amount of time there, although it never stays there for an entire interval. The Smith–Volterra–Cantor set illustrates how this is possible. Like the set of times the particle spends at zero, it has positive Lebesgue measure and contains no interval.</p>
+
+<p>Stickiness also appears in the law of the particle’s position at a fixed time. Suppose the particle starts at zero. Write \(Y_t\) for its position at time \(t>0\) and \(q_t\) for its density on the positive half-line. If \(\mu>0\) is the stickiness parameter, then</p>
+
+<div>\[
+\mathbb{P}_0(Y_t=0)=\frac{\mu}{2}\lim_{y\downarrow 0}q_t(y).
+\]</div>
+
+<p>The density just inside the boundary thus determines the probability of finding the particle exactly at zero. To describe how much time an individual particle spends there, we use its local time \(\ell_t\) at zero. The same stickiness parameter relates local time to elapsed time at the boundary,</p>
+
+<div>\[
+\int_s^t \mathbf{1}_{\{Y_u=0\}}\,du
+=\mu(\ell_t-\ell_s).
+\]</div>
+
+<p>In joint work with Ibrahim Fatkullin, we use this identity to sample a path between two observed positions. Once we know the local time at both endpoints, we know how much of the intervening time the particle spends at zero. We then use its first and last visits to zero to decompose the path and sample its position exactly at intermediate times. Each observation can guide the choice of where to look next.</p>
+
+<p>I am also interested in pairs of particles that interact when they meet. If their positions are \(X_t^1\) and \(X_t^2\), then their separation \(D_t=|X_t^1-X_t^2|\) reaches zero precisely when they meet. Time spent together is therefore time spent at the boundary for the separation process. What interests me in the two-particle problem is how to describe that separation jointly with the motion of the pair’s center, so that we can follow both when the particles meet and where they go together.</p>
 
 <h2 id="publications">Publications and preprints</h2>
 <ul class="mount-bibliography">
