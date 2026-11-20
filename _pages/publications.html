@@ -17,16 +17,39 @@ redirect_from:
 \mathbb{P}_0(Y_t=0)=\frac{\mu}{2}\lim_{y\downarrow 0}q_t(y).
 \]</div>
 
-<p>The density just inside the boundary thus determines the probability of finding the particle exactly at zero. To describe how much time an individual particle spends there, we use its local time \(\ell_t\) at zero. The same stickiness parameter relates local time to elapsed time at the boundary,</p>
+<p>The density just inside the boundary thus determines the probability of finding the particle exactly at zero. To describe how much time an individual particle spends there, we use its local time \(\ell_t\) at zero. The same stickiness parameter relates the increase in local time on an interval \([s,t]\) to the time spent at the boundary during that interval through the identity</p>
 
 <div>\[
 \int_s^t \mathbf{1}_{\{Y_u=0\}}\,du
 =\mu(\ell_t-\ell_s).
 \]</div>
 
-<p>In joint work with Ibrahim Fatkullin, we use this identity to sample a path between two observed positions. Once we know the local time at both endpoints, we know how much of the intervening time the particle spends at zero. We then use its first and last visits to zero to decompose the path and sample its position exactly at intermediate times. Each observation can guide the choice of where to look next.</p>
+<h3>Markov bridges</h3>
+<p>In joint work with Ibrahim Fatkullin, we construct exact samplers for Markov bridges of sticky reflected Brownian motion and its local time. Suppose the particle starts at \(x>0\) and ends at \(y>0\) at time \(T\), having accumulated local time \(r>0\) at zero. It has spent exactly \(\mu r\) units of time at the boundary. To determine where that time falls, we first sample the times \(f\) and \(g\) of its first and last visits to zero. Conditional on those times, the three path segments are independent and their joint law is</p>
 
-<p>I am also interested in pairs of particles that interact when they meet. If their positions are \(X_t^1\) and \(X_t^2\), then their separation \(D_t=|X_t^1-X_t^2|\) reaches zero precisely when they meet. Time spent together is therefore time spent at the boundary for the separation process. What interests me in the two-particle problem is how to describe that separation jointly with the motion of the pair’s center, so that we can follow both when the particles meet and where they go together.</p>
+<div>\[
+\underbrace{\mathcal B^{f}_{x,0}}_{[0,f]}
+\otimes
+\underbrace{\mathcal K^{g-f}_{r}}_{[f,g]}
+\otimes
+\underbrace{\mathcal B^{T-g}_{0,y}}_{[g,T]}.
+\]</div>
+
+<p>Here \(\mathcal B^{t}_{a,b}\) is the law of a three-dimensional Bessel bridge from \(a\) to \(b\) over time \(t\). The middle law \(\mathcal K^{t}_{r}\) is that of a sticky bridge from zero back to zero that accumulates local time \(r\) over time \(t\). To sample the particle at a time between \(f\) and \(g\), we first draw its local time there and then its position conditional on that draw. This decomposition gives exact samples at intermediate times without discretizing the path (Mount and Fatkullin, Theorem 2 and Appendix E).</p>
+
+<h3>Two and three particles</h3>
+<p>My next goal is to extend these methods to systems of particles that interact when they meet. For two particles on a line, their separation records when they are in contact, while their center of mass records where the pair moves during contact. With three particles, the geometry of the collision set becomes part of the problem. To see it, write the positions in increasing order and consider configurations in a bounded spatial window \([a,b]\). The ordered configurations form the tetrahedron</p>
+
+<div>\[
+a\leq x_1\leq x_2\leq x_3\leq b.
+\]</div>
+
+<p>The two collision faces, \(x_1=x_2\) and \(x_2=x_3\), are triangles. Their common edge, \(x_1=x_2=x_3\), represents triple contact. I plan to study the motion on these lower-dimensional simplices, beginning with the joint law of the time spent on the common edge and the time spent on the collision faces away from that edge. These quantities distinguish time spent together by all three particles from time spent together by exactly two. A longer-term goal is to sample a three-particle bridge conditional on those occupation times.</p>
+
+<h3>Voter models with memory</h3>
+<p>My early discussions with Ibrahim Fatkullin about coalescing and annihilating particles led me to Richard Arratia’s work. The connection between coalescing random walks and the classical voter model drew me to the question of how an individual voter’s memory affects the chances that a given opinion prevails. I would begin on a finite complete graph with two opinions, A and B. Each voter has an independent rate-one Poisson clock. When the clock rings, the voter hears the opinion of a uniformly chosen neighbor. A voter switches after hearing the opposing opinion twice in succession. Switching or hearing one’s own opinion resets the count.</p>
+
+<p>Suppose the population is evenly divided. Let \(u\) and \(v\) be the numbers of A and B supporters, respectively, who are one contrary encounter away from switching. My first objective would be to determine how the probability of eventual consensus on A depends on \((u,v)\). This would quantify how much the prospects for either opinion can vary among populations that look identical in a poll.</p>
 
 <h2 id="publications">Publications and preprints</h2>
 <ul class="mount-bibliography">
