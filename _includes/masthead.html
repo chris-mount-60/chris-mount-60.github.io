@@ -1,5 +1,5 @@
 {% include base_path %}
-<div class="masthead">
+<div class="masthead{% if page.research_landscape %} masthead--landscape{% endif %}">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -35,6 +35,7 @@
         <ul class="hidden-links hidden"></ul>
       </nav>
     </div>
+    {% if page.research_landscape %}{% include research-landscape.html %}{% endif %}
   </div>
 </div>
 

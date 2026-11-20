@@ -8,30 +8,30 @@ portfolio_page: true
 
 <p>I study stochastic processes that model the motion of particles. I am particularly interested in how a particle moves when it encounters a boundary and how two particles move when they come into contact. One example is sticky reflected Brownian motion on the half-line. Away from zero, the particle moves like Brownian motion. Once it reaches zero, it spends a positive amount of time there, although it never stays there for an entire interval. The Smith–Volterra–Cantor set illustrates how this is possible. Like the set of times the particle spends at zero, it has positive Lebesgue measure and contains no interval.</p>
 
-<p>Stickiness also appears in the law of the particle’s position at a fixed time. Suppose the particle starts at zero. Write \(Y_t\) for its position at time \(t>0\) and \(q_t\) for its density on the positive half-line. If \(\mu>0\) is the stickiness parameter, then</p>
+<p>Stickiness also appears in the law of the particle’s position at a fixed time. Suppose the particle starts at zero. Write \(\mathfrak{Y}_t\) for its position at time \(t>0\) and \(q_t\) for its density on the positive half-line. If \(\mu>0\) is the stickiness parameter, then</p>
 
 <div>\[
-\mathbb{P}_0(Y_t=0)=\frac{\mu}{2}\lim_{y\downarrow 0}q_t(y).
+\mathbb{P}_0(\mathfrak{Y}_t=0)=\frac{\mu}{2}\lim_{y\downarrow 0}q_t(y).
 \]</div>
 
 <p>The density just inside the boundary thus determines the probability of finding the particle exactly at zero. To describe how much time an individual particle spends there, we use its local time \(\ell_t\) at zero. The same stickiness parameter relates the increase in local time on an interval \([s,t]\) to the time spent at the boundary during that interval through the identity</p>
 
 <div>\[
-\int_s^t \mathbf{1}_{\{Y_u=0\}}\,du
+\int_s^t \mathbf{1}_{\{0\}}(\mathfrak{Y}_u)\,du
 =\mu(\ell_t-\ell_s).
 \]</div>
 
-<p>In joint work with Ibrahim Fatkullin, we construct exact samplers for Markov bridges of sticky reflected Brownian motion and its local time. Suppose the particle starts at \(x>0\) and ends at \(y>0\) at time \(T\), having accumulated local time \(r>0\) at zero. It has spent exactly \(\mu r\) units of time at the boundary. To determine where that time falls, we first sample the times \(f\) and \(g\) of its first and last visits to zero. Conditional on those times, the three path segments are independent and their joint law is</p>
+<p>In joint work with Ibrahim Fatkullin, we construct exact samplers for Markov bridges of sticky reflected Brownian motion and its local time. Suppose the particle starts at \(x>0\) and ends at \(y>0\) at time \(T\), having accumulated local time \(r>0\) at zero, with \(\mu r<T\). It has spent exactly \(\mu r\) units of time at the boundary. To determine where that time falls, we first sample the times \(f\) and \(g\) of its first and last visits to zero. Conditional on those times, the three path segments are independent, with respective bridge laws</p>
 
 <div>\[
-\underbrace{\mathcal B^{f}_{x,0}}_{[0,f]}
-\otimes
-\underbrace{\mathcal K^{g-f}_{r}}_{[f,g]}
-\otimes
-\underbrace{\mathcal B^{T-g}_{0,y}}_{[g,T]}.
+\underbrace{\mathbb{B}_{x,0,f}}_{[0,f]}
+\qquad
+\underbrace{\mathbb{M}_{r,g-f-\mu r}}_{[f,g]}
+\qquad
+\underbrace{\mathbb{B}_{0,y,T-g}}_{[g,T]}.
 \]</div>
 
-<p>Here \(\mathcal B^{t}_{a,b}\) is the law of a three-dimensional Bessel bridge from \(a\) to \(b\) over time \(t\). The middle law \(\mathcal K^{t}_{r}\) is that of a sticky bridge from zero back to zero that accumulates local time \(r\) over time \(t\). To sample the particle at a time between \(f\) and \(g\), we first draw its local time there and then its position conditional on that draw. This decomposition gives exact samples at intermediate times without discretizing the path.</p>
+<p>Here \(\mathbb{B}_{z,z',t}\) denotes the law of a Bessel(3) bridge from \(z\) to \(z'\) over a duration \(t\). The local time is constant at zero on the first segment and at \(r\) on the last. The middle law \(\mathbb{M}_{r,t}\) describes a sticky bridge from zero back to zero with total local time \(r\) and operational duration \(t\). Its physical duration is \(t+\mu r\), so the middle segment above has operational duration \(g-f-\mu r\). To sample the particle at a time between \(f\) and \(g\), we first draw its local time there and then its position conditional on that draw. This decomposition gives exact samples at intermediate times without discretizing the path.</p>
 
 <p>My next goal is to extend these methods to systems of particles that interact when they meet. For two particles on a line, their separation records when they are in contact, while their center of mass records where the pair moves during contact. With three particles, the geometry of the collision set becomes part of the problem. To see it, write the positions in increasing order and consider configurations in a bounded spatial window \([a,b]\). The ordered configurations form the tetrahedron</p>
 

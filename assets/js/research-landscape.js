@@ -1,10 +1,7 @@
 (() => {
   const landscape = document.getElementById("generate-ridge");
-  const sunset = document.getElementById("mount-sunset");
   const ridge = document.getElementById("mount-ridge");
   const area = document.getElementById("mount-area");
-  const sunsets = sunset.dataset.sunsets.split("|");
-  sunset.src = sunsets[Math.floor(Math.random() * sunsets.length)];
 
   const width = 960, height = 400, steps = 960, duration = 6000;
   let points = [], started = 0, frame = null;
@@ -23,7 +20,7 @@
       peak = Math.max(peak, Math.abs(next));
       brownian = next;
     }
-    return samples.map(([x, y]) => [x, height - 0.21 * height * y / (peak || 1)]);
+    return samples.map(([x, y]) => [x, height - 0.315 * height * y / (peak || 1)]);
   }
 
   function draw(fraction) {
