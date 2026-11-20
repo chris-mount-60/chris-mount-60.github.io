@@ -17,8 +17,11 @@ layout: compress
     {% include masthead.html %}
 
     {% if page.square_series %}
-      <div class="square-series">
-        <button type="button" id="bisect-square" title="Add a square with half the side length" aria-label="Add a square with half the side length"></button>
+      <div class="square-frame">
+        <div class="square-series square-left" aria-hidden="true"><span class="series-term"></span></div>
+        <div class="square-series square-right">
+          <button type="button" id="grow-squares" title="Add a square to both corners" aria-label="Add a square to both corners"></button>
+        </div>
         <span class="sr-only" role="status" id="square-count"></span>
       </div>
     {% endif %}

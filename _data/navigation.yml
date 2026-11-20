@@ -1,9 +1,17 @@
 main:
   - title: "Research"
     url: /research/
+    children:
+      - title: Presentations
+        url: /talks/
+      - title: Projects
+        url: /projects/
 
   - title: "Teaching"
     url: /teaching/
+    children:
+      - title: Teaching Projects
+        url: /teaching/projects/
 
   - title: "CV"
     url: /cv/

@@ -36,21 +36,22 @@ I like to build a lesson around a question that gives students a reason to do th
 - Graduate teaching assistant, 2017–2019: Precalculus Algebra, Developmental Mathematics
 - Graduate teaching assistant, Learning Services, summers 2018–2020: supervised undergraduate teaching assistants in a summer program for conditionally admitted students
 
-[Teaching projects](/teaching/projects/) include selected homework problems, lecture notes, and an interactive horizon simulation.
-
 <script>
 (() => {
-  const button = document.getElementById("bisect-square");
+  const stacks = document.querySelectorAll(".square-series");
   const status = document.getElementById("square-count");
-  let count = 1;
-  button.addEventListener("click", () => {
+  let side = 0.75, count = 1;
+  document.getElementById("grow-squares").addEventListener("click", () => {
+    side *= 2 / 3;
     count += 1;
-    const square = document.createElement("span");
-    square.className = "series-term";
-    square.style.width = Math.pow(0.5, count) + "in";
-    square.setAttribute("aria-hidden", "true");
-    button.parentElement.appendChild(square);
-    status.textContent = count + " squares. Each side is half the length of the one above.";
+    for (const stack of stacks) {
+      const square = document.createElement("span");
+      square.className = "series-term";
+      square.style.width = side + "in";
+      square.setAttribute("aria-hidden", "true");
+      stack.appendChild(square);
+    }
+    status.textContent = count + " squares in each corner.";
   });
 })();
 </script>

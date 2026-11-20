@@ -4,6 +4,7 @@ title: "Chris Mount :: Portfolio"
 permalink: /
 author_profile: false
 portfolio_page: true
+hide_page_title: true
 redirect_from:
   - /about/
   - /about.html

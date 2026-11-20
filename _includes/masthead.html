@@ -13,17 +13,54 @@
             {% else %}
               {% assign domain = base_path %}
             {% endif %}
-            <li class="masthead__menu-item {% if page.url contains link.url and link.url != '/' %}selected{% endif %}">
+            <li class="masthead__menu-item {% if page.url == link.url and link.url != '/' %}selected{% endif %}">
               <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+              {% if link.children %}
+                <details class="nav-disclosure">
+                  <summary aria-label="{{ link.title }} submenu"></summary>
+                  <ul class="nav-children">
+                    {% for child in link.children %}
+                      <li><a href="{{ base_path }}{{ child.url }}">{{ child.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </details>
+              {% endif %}
             </li>
           {% endfor %}
           <li id="theme-toggle" class="masthead__menu-item persist tail">
             <button type="button" aria-label="Toggle color theme"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></button>
           </li>
         </ul>
-        <button class="greedy-nav__toggle" type="button"><span class="navicon"></span></button>
+        <button aria-label="Navigation menu" class="greedy-nav__toggle" type="button"><span class="navicon"></span></button>
         <ul class="hidden-links hidden"></ul>
       </nav>
     </div>
   </div>
 </div>
+
+<script>
+(() => {
+  const menus = document.querySelectorAll(".nav-disclosure");
+  for (const menu of menus) {
+    const item = menu.parentElement;
+    item.addEventListener("pointerenter", event => {
+      if (event.pointerType === "mouse") menu.open = true;
+    });
+    item.addEventListener("pointerleave", event => {
+      if (event.pointerType === "mouse" && !item.contains(document.activeElement)) menu.open = false;
+    });
+    item.addEventListener("focusout", event => {
+      if (!item.contains(event.relatedTarget)) menu.open = false;
+    });
+    item.addEventListener("keydown", event => {
+      if (event.key === "Escape" && menu.open) {
+        menu.open = false;
+        menu.querySelector("summary").focus();
+      }
+    });
+    document.addEventListener("pointerdown", event => {
+      if (!item.contains(event.target)) menu.open = false;
+    });
+  }
+})();
+</script>
