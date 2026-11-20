@@ -57,13 +57,10 @@
   margin-bottom: 1.5rem;
   border-block: 1px solid var(--global-border-color);
   .portrait-space {
-    aspect-ratio: 4/5;
-    display: grid;
-    place-items: center;
-    padding: .6rem;
-    text-align: center;
-    font: italic 1rem/1.35 Georgia, serif;
-    background: rgba(136, 117, 173, .12);
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
     border: 1px solid var(--global-border-color);
   }
   .academic-role { font-weight: 650; }
@@ -161,4 +158,13 @@
   .nav-disclosure summary { position: absolute; top: .25rem; right: 0; }
   > a { padding-right: 1.6rem; }
   .nav-children { position: static; padding-left: .5rem; border: 0; }
+}
+
+.cv-document {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 8rem);
+  height: calc(100dvh - 8rem);
+  min-height: 32rem;
+  border: 0;
 }

@@ -11,7 +11,7 @@ redirect_from:
 ---
 
 <div class="mount-profile">
-  <div class="portrait-space">Portrait forthcoming</div>
+  <img class="portrait-space" src="{{ '/images/Bio_pic_CMount.jpg' | relative_url }}" alt="Christopher Mount">
   <div class="contact-block">
     <p class="academic-role">Ph.D. candidate in mathematics<br>Graduate Teaching Assistant</p>
     <p>Office MATH-623<br>Department of Mathematics<br>University of Arizona<br>617 N. Santa Rita Ave.<br>Tucson, AZ 85721</p>

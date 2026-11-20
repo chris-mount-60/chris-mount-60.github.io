@@ -1,0 +1,242 @@
+% ===================================================================
+%  Curriculum Vitae -- Christopher Mount            (working revision, Nov 2026)
+%  Plain article-class CV in the style common for math job applications.
+%  Compiles with pdfLaTeX on Overleaf; no special template or fonts needed.
+%
+% ===================================================================
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+
+% --- section headings: small caps with a thin rule ----------------
+\titleformat{\section}{\large\scshape}{}{0pt}{}[\vspace{-0.6ex}\rule{\textwidth}{0.4pt}]
+\titlespacing*{\section}{0pt}{2.2ex}{1.2ex}
+
+% --- page style: name + page number in footer ---------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\small Christopher Mount -- Curriculum Vitae}
+\fancyfoot[R]{\small \thepage}
+
+% --- entry macros -------------------------------------------------
+% \entry{bold left text}{right-aligned date}
+\newcommand{\entry}[2]{\Needspace{4\baselineskip}\noindent\textbf{#1}\hfill #2\par}
+% \subentry{italic second line}
+\newcommand{\subentry}[1]{\noindent\textit{#1}\par}
+% \course{course}{terms}  -- one line in the teaching list
+\newcommand{\course}[2]{\item #1 \hfill {\small #2}}
+
+\setlist[itemize]{leftmargin=1.5em, itemsep=0.2ex, topsep=0.4ex}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+% ===================================================================
+%  HEADER
+% ===================================================================
+\begin{minipage}[t]{0.55\textwidth}
+  {\LARGE\textbf{Christopher Mount}}\\[1.2ex]
+  Department of Mathematics\\
+  University of Arizona\\
+  617 N.\ Santa Rita Ave.\\
+  Tucson, AZ 85721
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.42\textwidth}
+  \raggedleft
+  \vspace{2.2em}
+  \href{mailto:cmount@arizona.edu}{cmount@arizona.edu}\\
+  % Uncomment once these exist:
+  % \href{https://YOUR-SITE}{YOUR-SITE}\\
+  % \href{https://github.com/USERNAME}{github.com/USERNAME}
+\end{minipage}
+
+% ===================================================================
+\section{Research Interests}
+% ===================================================================
+Probability and stochastic processes; diffusions with sticky and reflecting
+boundary behavior; interacting particle systems with sticky interactions;
+Brownian local time and Ray--Knight theory; exact simulation and Monte Carlo
+methods for diffusions.
+
+% ===================================================================
+\section{Education}
+% ===================================================================
+\entry{Ph.D.\ in Mathematics, University of Arizona}{expected May 2027}
+\subentry{Advisor: Ibrahim Fatkullin}
+Dissertation (working title): \emph{Sticky Brownian Motion: Exact Bridges and
+Two-Particle Dynamics with Discontinuous Diffusivity}
+
+\medskip
+\entry{M.S.\ in Mathematics, University of Arizona}{May 2024}
+\subentry{Advisor: Ibrahim Fatkullin}
+Thesis: \emph{Sticky Boundary Conditions for the Wiener Process}
+
+\medskip
+\entry{M.S.\ in Mathematics, Jacksonville State University}{2019}
+\subentry{Advisor: Jeff Dodd}
+Thesis: \emph{The Napkin Ring Problem: Generalizations and Related Problems}
+
+\medskip
+\entry{B.S.\ in Mathematics, Jacksonville State University}{2017}
+\subentry{Minor in Physics}
+
+% ===================================================================
+\section{Papers and Research in Progress}
+% ===================================================================
+\begin{enumerate}[label={[\arabic*]}, leftmargin=2.2em, itemsep=0.8ex]
+  \item C.~Mount and I.~Fatkullin.
+        \emph{Exact bridges for sticky reflected Brownian motion}.
+        In preparation; arXiv preprint expected November 2026.
+  \item C.~Mount.
+        \emph{Two sticky Brownian particles: center-of-mass dynamics with
+        discontinuous diffusivity} (working title).
+        Dissertation research, in progress.
+\end{enumerate}
+
+% ===================================================================
+\section{Publications}
+% ===================================================================
+\begin{enumerate}[label={[\arabic*]}, leftmargin=2.2em, itemsep=0.8ex]
+  \item C.~Mount and B.~Jackson.
+        \emph{Application of SVD: Information Retrieval and Document Ranking}.
+        The Pentagon \textbf{77}(1) (2017).
+        \par \textit{Undergraduate research supervised by Dr.\ Jaedeok Kim,
+        Jacksonville State University.}
+\end{enumerate}
+
+% ===================================================================
+\Needspace{7\baselineskip}
+\section{Talks and Presentations}
+% ===================================================================
+\entry{Sampling sticky Brownian motion and its local time}{Nov.\ 2026}
+AMS Fall Western Sectional Meeting, Arizona State University, Tempe, AZ
+(contributed talk)
+
+\medskip
+\entry{Sampling sticky Brownian motion and its local time}{Oct.\ 2026}
+Graduate Student SouthWest Applied Mathematics Conference (GS SWAM 2026),
+University of New Mexico, Albuquerque, NM (contributed talk)
+
+\medskip
+\entry{Exact bridges for reflected sticky Brownian motion}{Oct.\ 2026}
+Mathematical Physics and Probability Seminar,
+University of Arizona
+
+\medskip
+\entry{Replacing a Placement Test}{2019}
+Christopher Mount, Jan Case, and Courtney Peppers.\\
+NROC Member Meeting (The NROC Project is a non-profit organization
+devoted to open educational resources.)
+
+\medskip
+\entry{Application of SVD: Information retrieval and document ranking}{2017}
+Kappa Mu Epsilon 41st Biennial Convention (with B.~Jackson)
+
+% ===================================================================
+\section{Teaching Experience}
+% ===================================================================
+\entry{University of Arizona, Department of Mathematics}{2021--present}
+
+\smallskip
+\textit{Co-instructor}
+\begin{itemize}
+  \course{Math 129, Calculus II}{Fall 2025, Spring 2026, Fall 2026}
+  \item[] \small Active-learning course taught by a team of a faculty lecturer,
+        one graduate instructor, and three undergraduate learning assistants.
+        Alternate with the lead instructor between lecturing and live
+        annotation; facilitate in-class group work; write written homework
+        problems and Gradescope grading rubrics. \normalsize
+  \course{Math 113, Elements of Calculus (online)}{Summer 2025}
+\end{itemize}
+
+\textit{Instructor of record}
+\begin{itemize}
+  \course{Math 107, Exploring and Understanding Data}{6 terms, Summer 2022--Spring 2025}
+  \course{Math 112, College Algebra: Concepts and Applications}{Fall 2022}
+\end{itemize}
+
+\textit{Teaching assistant}
+\begin{itemize}
+  \course{Math 107, Exploring and Understanding Data}{Fall 2021, Spring 2022}
+\end{itemize}
+
+\medskip
+\entry{Jacksonville State University}{2019--2020}
+\subentry{Adjunct Instructor, Department of Mathematical, Computing, and Information Sciences}
+\begin{itemize}
+  \item Instructor of record for Precalculus Algebra, Finite Mathematics,
+        and Calculus and Its Applications; designed syllabi, exams,
+        and homework
+\end{itemize}
+
+\medskip
+\entry{Jacksonville State University}{2017--2019}
+\subentry{Graduate Teaching Assistant, Department of Mathematical, Computing, and Information Sciences}
+\begin{itemize}
+  \item Taught Precalculus Algebra and Developmental Mathematics;
+        tutored undergraduate mathematics courses
+\end{itemize}
+
+\medskip
+\entry{Jacksonville State University}{Summers 2018--2020}
+\subentry{Graduate Teaching Assistant, Learning Services}
+\begin{itemize}
+  \item Supervised a team of undergraduate teaching assistants in a
+        summer program for conditionally admitted students; participated
+        in weekly faculty meetings on student progress
+\end{itemize}
+
+% ===================================================================
+\section{Honors and Awards}
+% ===================================================================
+Graduate travel support, Department of Mathematics, University of Arizona \hfill 2026\par
+KME National Convention paper award (selected for \emph{The Pentagon}) \hfill 2017\par
+Member, Kappa Mu Epsilon National Mathematics Honor Society \hfill 2017\par
+
+% ===================================================================
+\section{Professional Memberships}
+% ===================================================================
+American Mathematical Society
+% Add SIAM here if you join (student membership is cheap or free through the UA chapter).
+
+% ===================================================================
+\section{Computational Skills}
+% ===================================================================
+% Only list what you could comfortably discuss in an interview.
+\LaTeX{} and Python (Monte Carlo simulation of stochastic processes)
+
+% ===================================================================
+\section{References}
+% ===================================================================
+\begin{minipage}[t]{0.48\textwidth}
+  Ibrahim Fatkullin\\
+  Associate Professor of Mathematics\\
+  University of Arizona\\
+  \href{mailto:ibrahimf@arizona.edu}{ibrahimf@arizona.edu}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+  Janek Wehr\\
+  Professor, Applied Mathematics - GIDP\\
+  University of Arizona\\
+  \href{mailto:wehr@arizona.edu}{wehr@arizona.edu}
+\end{minipage}
+
+\bigskip
+\begin{minipage}[t]{0.48\textwidth}
+  Sunder Sethuraman\\
+  Professor of Mathematics\\
+  University of Arizona\\
+  \href{mailto:sethuram@arizona.edu}{sethuram@arizona.edu}
+\end{minipage}
+
+\end{document}
