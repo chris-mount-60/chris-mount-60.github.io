@@ -19,6 +19,6 @@ redirect_from:
   </div>
 </div>
 
-I study what happens when a diffusing particle reaches a boundary where it can spend time before moving away again. My doctoral advisor is Ibrahim Fatkullin.
+I study diffusions with sticky boundaries, where a particle can accumulate positive time at the boundary without ever remaining there for a whole time interval. My doctoral advisor is Ibrahim Fatkullin.
 
 My [research](/research/) brings together probability and exact simulation. My [teaching](/teaching/) ranges from developmental mathematics to calculus at Jacksonville State University and the University of Arizona.

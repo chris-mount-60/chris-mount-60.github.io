@@ -4,44 +4,9 @@ title: "Research statement"
 permalink: /research/statement/
 author_profile: false
 portfolio_page: true
+hide_page_title: true
 ---
 
-<p>I study stochastic processes that model the motion of particles. I am particularly interested in how a particle moves when it encounters a boundary and how two particles move when they come into contact. One example is sticky reflected Brownian motion on the half-line. Away from zero, the particle moves like Brownian motion. Once it reaches zero, it spends a positive amount of time there, although it never stays there for an entire interval. The Smith–Volterra–Cantor set illustrates how this is possible. Like the set of times the particle spends at zero, it has positive Lebesgue measure and contains no interval.</p>
-
-<p>Stickiness also appears in the law of the particle’s position at a fixed time. Suppose the particle starts at zero. Write \(\mathfrak{Y}_t\) for its position at time \(t>0\) and \(q_t\) for its density on the positive half-line. If \(\mu>0\) is the stickiness parameter, then</p>
-
-<div>\[
-\mathbb{P}_0(\mathfrak{Y}_t=0)=\frac{\mu}{2}\lim_{y\downarrow 0}q_t(y).
-\]</div>
-
-<p>The density just inside the boundary thus determines the probability of finding the particle exactly at zero. To describe how much time an individual particle spends there, we use its local time \(\ell_t\) at zero. The same stickiness parameter relates the increase in local time on an interval \([s,t]\) to the time spent at the boundary during that interval through the identity</p>
-
-<div>\[
-\int_s^t \mathbf{1}_{\{0\}}(\mathfrak{Y}_u)\,du
-=\mu(\ell_t-\ell_s).
-\]</div>
-
-<p>In joint work with Ibrahim Fatkullin, we construct exact samplers for Markov bridges of sticky reflected Brownian motion and its local time. Suppose the particle starts at \(x>0\) and ends at \(y>0\) at time \(T\), having accumulated local time \(r>0\) at zero, with \(\mu r\lt T\). It has spent exactly \(\mu r\) units of time at the boundary. To determine where that time falls, we first sample the times \(f\) and \(g\) of its first and last visits to zero. Conditional on those times, the three path segments are independent, with respective bridge laws</p>
-
-<div>\[
-\underbrace{\mathbb{B}_{x,0,f}}_{[0,f]}
-\qquad
-\underbrace{\mathbb{M}_{r,g-f-\mu r}}_{[f,g]}
-\qquad
-\underbrace{\mathbb{B}_{0,y,T-g}}_{[g,T]}.
-\]</div>
-
-<p>Here \(\mathbb{B}_{z,z',t}\) denotes the law of a Bessel(3) bridge from \(z\) to \(z'\) over a duration \(t\). The local time is constant at zero on the first segment and at \(r\) on the last. The middle law \(\mathbb{M}_{r,t}\) describes a sticky bridge from zero back to zero with total local time \(r\) and operational duration \(t\). Its physical duration is \(t+\mu r\), so the middle segment above has operational duration \(g-f-\mu r\). To sample the particle at a time between \(f\) and \(g\), we first draw its local time there and then its position conditional on that draw. This decomposition gives exact samples at intermediate times without discretizing the path.</p>
-
-<p>My next goal is to extend these methods to systems of particles that interact when they meet. For two particles on a line, their separation records when they are in contact, while their center of mass records where the pair moves during contact. With three particles, the geometry of the collision set becomes part of the problem. To see it, write the positions in increasing order and consider configurations in a bounded spatial window \([a,b]\). The ordered configurations form the tetrahedron</p>
-
-<div>\[
-a\leq x_1\leq x_2\leq x_3\leq b.
-\]</div>
-
-<p>The two collision faces, \(x_1=x_2\) and \(x_2=x_3\), are triangles. Their common edge, \(x_1=x_2=x_3\), represents triple contact. I plan to study the motion on these lower-dimensional simplices, beginning with the joint law of the time spent on the common edge and the time spent on the collision faces away from that edge. These quantities distinguish time spent together by all three particles from time spent together by exactly two. A longer-term goal is to sample a three-particle bridge conditional on those occupation times.</p>
-
-<p>My early discussions with Dr Fatkullin about coalescing and annihilating particles led me to Richard Arratia’s work. The connection between coalescing random walks and the classical voter model drew me to the question of how an individual voter’s memory affects the chances that a given opinion prevails. One example of an investigation of this problem could begin on a finite complete graph with two opinions, A and B. Each voter has an independent rate-one Poisson clock. When the clock rings, the voter hears the opinion of a uniformly chosen neighbor. A voter switches after hearing the opposing opinion twice in succession. Switching or hearing one’s own opinion resets the count.</p>
-
-<p>Suppose the population is evenly divided. Let \(u\) and \(v\) be the numbers of A and B supporters, respectively, who are one contrary encounter away from switching. My first objective would be to determine how the probability of eventual consensus on A depends on \((u,v)\). This would give a way to quantify how much the inclination towards either opinion can vary among populations that may otherwise look identical in a poll.</p>
-
+<object class="embedded-document" data="{{ '/files/Research_Statement.pdf' | relative_url }}?v={{ site.time | date: '%s' }}" type="application/pdf" aria-label="Christopher Mount's research statement">
+  <p><a href="{{ '/files/Research_Statement.pdf' | relative_url }}">Open the research statement (PDF)</a></p>
+</object>
