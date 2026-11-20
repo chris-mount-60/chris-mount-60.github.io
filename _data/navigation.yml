@@ -2,6 +2,8 @@ main:
   - title: "Research"
     url: /research/
     children:
+      - title: Research statement
+        url: /research/statement/
       - title: Presentations
         url: /talks/
       - title: Projects

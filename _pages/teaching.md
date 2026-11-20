@@ -9,7 +9,7 @@ square_series: true
 
 ## Teaching philosophy
 
-I like to build a lesson around a question that gives students a reason to do the mathematics. How far out to sea can you see from the beach? Students can get surprisingly far with a sketch of the Earth and a Taylor series. After a lesson, I compare the work students did in class with their solutions to related exam problems. Where the same difficulty shows up twice, I revise the lesson.
+Forthcoming.
 
 ## Courses taught
 

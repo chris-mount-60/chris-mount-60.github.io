@@ -74,22 +74,41 @@
   .mount-profile .contact-block { font-size: 1rem; }
 }
 .mount-bibliography li { margin-bottom: .85rem; }
+.mount-portfolio .research-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  .page__title { margin: 0; }
+}
 .mount-portfolio .mount-landscape {
   display: block;
-  margin: 2rem 0 0;
-  .mount-sky { position: relative; aspect-ratio: 12/5; overflow: hidden; background: #261b46; }
+  position: relative;
+  flex: 0 1 26rem;
+  width: 55%;
+  aspect-ratio: 3 / 1;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: #261b46;
+  cursor: pointer;
   img, svg { display: block; position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; }
   img { object-fit: cover; border-radius: 0; }
-  figcaption {
-    display: flex; justify-content: flex-end; align-items: center;
-    margin: 0; padding: .8rem 0; font-size: 1rem; text-align: left;
-    color: var(--global-text-color);
-  }
-  button {
-    flex-shrink: 0; padding: .55rem 1rem; min-width: 5.2rem;
-    background: #453478; color: white; border: 0; border-radius: .25rem;
-    font: inherit; font-weight: 600; cursor: pointer;
-  }
+  &:focus-visible { outline: 3px solid #6753a2; outline-offset: 4px; }
+}
+.research-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem 1.5rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 36rem) {
+  .mount-portfolio .research-header { gap: 1rem; }
+  .mount-portfolio .research-header .page__title { font-size: 2rem; }
+  .mount-portfolio .mount-landscape { flex-basis: 50%; width: 50%; }
 }
 .square-frame {
   position: absolute; left: 0; right: 0; z-index: 2;
