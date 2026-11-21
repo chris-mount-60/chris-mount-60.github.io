@@ -104,6 +104,8 @@
   --vertical-grain: repeating-linear-gradient(90deg, var(--grain-stops));
 }
 .mount-landscape-frame {
+  position: relative;
+  z-index: 1;
   align-self: flex-end;
   flex: 0 0 calc(var(--frame-edge) + var(--plot-width));
   padding-left: var(--frame-edge);

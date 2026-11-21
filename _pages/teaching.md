@@ -13,9 +13,9 @@ portfolio_page: true
 <div class="courses-heading">
   <h2 id="courses-taught">Courses taught</h2>
   <button id="chalkboard-demo" type="button" aria-label="Animate the chalkboard figure">
-    <img data-pose="down" src="{{ '/images/teaching-chalkboard.svg' | relative_url }}" alt="" width="72" height="54">
-    <img data-pose="up" src="{{ '/images/teaching-chalkboard-raised.svg' | relative_url }}" alt="" width="72" height="54" hidden>
-    <img data-pose="eureka" src="{{ '/images/teaching-chalkboard-eureka.svg' | relative_url }}" alt="" width="72" height="54" hidden>
+    <img data-pose="down" src="{{ '/images/teaching-chalkboard.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="" width="72" height="54">
+    <img data-pose="up" src="{{ '/images/teaching-chalkboard-raised.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="" width="72" height="54" hidden>
+    <img data-pose="eureka" src="{{ '/images/teaching-chalkboard-eureka.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="" width="72" height="54" hidden>
   </button>
   <span id="chalkboard-answer" class="sr-only" role="status"></span>
 </div>
