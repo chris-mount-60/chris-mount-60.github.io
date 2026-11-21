@@ -92,31 +92,47 @@
   min-width: 0;
 }
 .masthead--landscape .greedy-nav { min-width: 0; }
-.mount-landscape-frame {
+.mount-landscape-frame,
+.mount-landscape-sill {
   --plot-width: clamp(5.4rem, 21.6vw, 19.8rem);
   --frame-edge: clamp(8px, .85vw, 12px);
-  position: relative;
+  --wood: #bc926b;
+  --wood-grain: #805837;
+  --grain-stops: var(--wood) 0 2px, #a67c56 2px 3px,
+    var(--wood) 3px 5px, var(--wood-grain) 5px 6px,
+    #c8a17c 6px 8px, var(--wood) 8px 11px, #9b714d 11px 12px;
+  --vertical-grain: repeating-linear-gradient(90deg, var(--grain-stops));
+}
+.mount-landscape-frame {
+  align-self: flex-end;
   flex: 0 0 calc(var(--frame-edge) + var(--plot-width));
-  padding: 0 0 var(--frame-edge) var(--frame-edge);
-  background: #b78d65;
-  box-shadow: inset 0 0 0 1px #735136;
+  padding-left: var(--frame-edge);
+  background: var(--vertical-grain);
+}
+.mount-landscape-sill {
+  position: sticky;
+  top: var(--masthead-offset, #{$masthead-height});
+  z-index: 19;
+  margin-left: auto;
+  width: calc(var(--plot-width) + var(--frame-edge));
+  height: var(--frame-edge);
+  background: repeating-linear-gradient(0deg, var(--grain-stops));
 
-  > svg {
+  // Continue the left rail into the corner up to the miter joint.
+  &::before,
+  &::after {
+    content: "";
     position: absolute;
-    fill: none;
-    stroke: #17120d;
-    stroke-linecap: round;
-  }
-  > svg path { vector-effect: non-scaling-stroke; }
-  &__left {
-    inset: 0 auto auto 0;
+    inset: 0 auto 0 0;
     width: var(--frame-edge);
-    height: calc(100% - var(--frame-edge));
   }
-  &__bottom {
-    inset: auto 0 0 var(--frame-edge);
-    width: var(--plot-width);
-    height: var(--frame-edge);
+  &::before {
+    background: var(--vertical-grain);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+  }
+  &::after {
+    background: linear-gradient(135deg, transparent calc(50% - .7px),
+      #61412b 50%, transparent calc(50% + .7px));
   }
 }
 .masthead--landscape .mount-landscape {
@@ -163,8 +179,7 @@
   cursor: pointer;
 
   img { display: block; margin: 0; }
-  &[aria-pressed="false"] img:last-child,
-  &[aria-pressed="true"] img:first-child { display: none; }
+  img[hidden] { display: none; }
   &:focus-visible { outline: 2px solid var(--global-link-color); }
 }
 

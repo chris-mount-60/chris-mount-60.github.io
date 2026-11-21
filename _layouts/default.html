@@ -15,6 +15,9 @@ layout: compress
 
     {% include browser-upgrade.html %}
     {% include masthead.html %}
+    {% if page.research_landscape %}
+      <div class="mount-landscape-sill" aria-hidden="true"></div>
+    {% endif %}
 
     {{ content }}
 
