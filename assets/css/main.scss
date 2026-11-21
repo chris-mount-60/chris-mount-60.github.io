@@ -92,11 +92,37 @@
   min-width: 0;
 }
 .masthead--landscape .greedy-nav { min-width: 0; }
+.mount-landscape-frame {
+  --plot-width: clamp(5.4rem, 21.6vw, 19.8rem);
+  --frame-edge: clamp(8px, .85vw, 12px);
+  position: relative;
+  flex: 0 0 calc(var(--frame-edge) + var(--plot-width));
+  padding: 0 0 var(--frame-edge) var(--frame-edge);
+  background: #b78d65;
+  box-shadow: inset 0 0 0 1px #735136;
+
+  > svg {
+    position: absolute;
+    fill: none;
+    stroke: #17120d;
+    stroke-linecap: round;
+  }
+  > svg path { vector-effect: non-scaling-stroke; }
+  &__left {
+    inset: 0 auto auto 0;
+    width: var(--frame-edge);
+    height: calc(100% - var(--frame-edge));
+  }
+  &__bottom {
+    inset: auto 0 0 var(--frame-edge);
+    width: var(--plot-width);
+    height: var(--frame-edge);
+  }
+}
 .masthead--landscape .mount-landscape {
   display: block;
   position: relative;
-  flex: 0 0 clamp(6rem, 24vw, 22rem);
-  width: clamp(6rem, 24vw, 22rem);
+  width: 100%;
   aspect-ratio: 3 / 1;
   overflow: hidden;
   padding: 0;
@@ -122,23 +148,24 @@
     > a { max-width: 8rem; white-space: normal; font-size: .9rem; }
   }
 }
-.square-frame {
-  position: absolute; left: 0; right: 0; z-index: 2;
-  display: flex; justify-content: space-between; align-items: flex-start;
-  pointer-events: none;
+.courses-heading {
+  position: relative;
+  margin-bottom: 1em;
+  h2 { margin-bottom: 0; }
 }
-.square-series {
-  display: flex; flex-direction: column; align-items: flex-start;
-  &.square-right { align-items: flex-end; }
-  button, .series-term {
-    display: block; flex: none; width: .75in; aspect-ratio: 1;
-    padding: 0; margin: 0; border: 0; border-radius: 0; background: #6753a2;
-  }
-  button { cursor: pointer; pointer-events: auto; }
-  button:focus-visible { outline: 3px solid #ffba58; outline-offset: -4px; }
-}
-@media (max-width: 64rem) {
-  .square-frame { position: relative; }
+#chalkboard-demo {
+  position: absolute;
+  inset-inline-start: min(75%, calc(100% - 72px));
+  bottom: 1px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  img { display: block; margin: 0; }
+  &[aria-pressed="false"] img:last-child,
+  &[aria-pressed="true"] img:first-child { display: none; }
+  &:focus-visible { outline: 2px solid var(--global-link-color); }
 }
 
 .greedy-nav .masthead__menu-item:has(.nav-disclosure) {

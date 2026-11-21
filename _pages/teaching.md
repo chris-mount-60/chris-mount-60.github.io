@@ -4,14 +4,19 @@ title: "Teaching"
 permalink: /teaching/
 author_profile: false
 portfolio_page: true
-square_series: true
 ---
 
 ## Teaching philosophy
 
 [Read my teaching philosophy.](/teaching/philosophy/)
 
-## Courses taught
+<div class="courses-heading">
+  <h2 id="courses-taught">Courses taught</h2>
+  <button id="chalkboard-demo" type="button" aria-pressed="false" aria-label="Raise the figure’s arm">
+    <img src="{{ '/images/teaching-chalkboard.svg' | relative_url }}" alt="" width="72" height="54">
+    <img src="{{ '/images/teaching-chalkboard-raised.svg' | relative_url }}" alt="" width="72" height="54">
+  </button>
+</div>
 
 ### University of Arizona
 
@@ -38,20 +43,10 @@ square_series: true
 
 <script>
 (() => {
-  const stacks = document.querySelectorAll(".square-series");
-  const status = document.getElementById("square-count");
-  let side = 0.75, count = 1;
-  document.getElementById("grow-squares").addEventListener("click", () => {
-    side *= 2 / 3;
-    count += 1;
-    for (const stack of stacks) {
-      const square = document.createElement("span");
-      square.className = "series-term";
-      square.style.width = side + "in";
-      square.setAttribute("aria-hidden", "true");
-      stack.appendChild(square);
-    }
-    status.textContent = count + " squares in each corner.";
+  const figure = document.getElementById("chalkboard-demo");
+  figure.addEventListener("click", () => {
+    const raised = figure.getAttribute("aria-pressed") === "true";
+    figure.setAttribute("aria-pressed", String(!raised));
   });
 })();
 </script>

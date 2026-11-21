@@ -1,0 +1,26 @@
+\documentclass[tikz,multi=tikzpicture]{standalone}
+
+\definecolor{figureink}{HTML}{8A634D}
+\definecolor{board}{HTML}{263C32}
+\definecolor{boardedge}{HTML}{977052}
+\definecolor{chalk}{HTML}{F8F0E3}
+
+\newcommand{\TeachingPose}[1]{%
+  \begin{tikzpicture}[line cap=round,line join=round]
+    \path[use as bounding box] (0,0) rectangle (2.48,1.85);
+    \draw[draw=boardedge,fill=board,line width=.85pt] (1.05,.73) rectangle (2.41,1.74);
+    \node[text=chalk,font=\footnotesize,inner sep=0] at (1.73,1.24) {$\int x\,dx$};
+    \fill[figureink] (.49,1.33) circle[radius=.13];
+    \draw[figureink,line width=1.05pt]
+      (.49,1.15) -- (.49,.55)
+      (.49,1.02) -- ++(#1:.87)
+      (.49,1.02) -- (.23,.72)
+      (.49,.55) -- (.23,.04)
+      (.49,.55) -- (.74,.04);
+  \end{tikzpicture}%
+}
+
+\begin{document}
+\TeachingPose{30}
+\TeachingPose{35}
+\end{document}

@@ -1,17 +1,26 @@
-<button class="mount-landscape" id="generate-ridge" type="button"
-        aria-label="Generate a reflected Brownian mountain ridge"
-        title="Click to generate a new mountain ridge">
-  <img id="mount-sunset" src="{{ '/images/research-sunset-crimson.jpg' | relative_url }}"
-       alt="">
-  <svg viewBox="0 0 960 400" preserveAspectRatio="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="mount-fill" x1="0" y1="274" x2="0" y2="400" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stop-color="#000000"/>
-        <stop offset="1" stop-color="#180925"/>
-      </linearGradient>
-    </defs>
-    <path id="mount-area" fill="url(#mount-fill)"/>
-    <path id="mount-ridge" fill="none" stroke="url(#mount-fill)" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+<div class="mount-landscape-frame">
+  <button class="mount-landscape" id="generate-ridge" type="button"
+          aria-label="Generate a reflected Brownian mountain ridge"
+          title="Click to generate a new mountain ridge">
+    <img id="mount-sunset" src="{{ '/images/research-sunset-crimson.jpg' | relative_url }}"
+         alt="">
+    <svg viewBox="0 0 960 400" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="mount-fill" x1="0" y1="274" x2="0" y2="400" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#000000"/>
+          <stop offset="1" stop-color="#180925"/>
+        </linearGradient>
+      </defs>
+      <path id="mount-area" fill="url(#mount-fill)"/>
+      <path id="mount-ridge" fill="none" stroke="url(#mount-fill)" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </button>
+  <svg class="mount-landscape-frame__left" viewBox="0 0 16 100" preserveAspectRatio="none" aria-hidden="true">
+    <path transform="translate(16 0) rotate(90)" d="M 5 9 C 1 0 20 1 28 5 C 44 13 56 3 72 11 C 80 15 99 16 95 7"/>
   </svg>
-</button>
+  <svg class="mount-landscape-frame__bottom" viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M 5 9 C 1 0 20 1 28 5 C 44 13 56 3 72 11 C 80 15 99 16 95 7"/>
+    <path transform="translate(100 0)" d="M 5 9 C 1 0 20 1 28 5 C 44 13 56 3 72 11 C 80 15 99 16 95 7"/>
+  </svg>
+</div>
 <script src="{{ '/assets/js/research-landscape.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>

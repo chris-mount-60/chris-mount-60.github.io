@@ -8,10 +8,11 @@
 // Constants for CDNs
 const PLOTLY_URL = "https://cdn.jsdelivr.net/npm/plotly.js@3.6.0/dist/plotly.min.js";
 const MERMAID_URL = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+const THEME_STORAGE_KEY = "portfolio-color-theme";
 
 // Start in the light theme unless the visitor has chosen dark mode.
 function determineComputedTheme() {
-  return localStorage.getItem("theme") === "dark" ? "dark" : "light";
+  return localStorage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
 }
 
 // Apply the stored theme on page load or the new theme after a toggle.
@@ -31,7 +32,7 @@ function setTheme(theme) {
 function toggleTheme() {
   const current_theme = $("html").attr("data-theme");
   const new_theme = current_theme === "dark" ? "light" : "dark";
-  localStorage.setItem("theme", new_theme);
+  localStorage.setItem(THEME_STORAGE_KEY, new_theme);
   setTheme(new_theme);
   redrawPlotly();
 }
