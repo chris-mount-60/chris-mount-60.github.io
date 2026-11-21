@@ -92,10 +92,11 @@
   min-width: 0;
 }
 .masthead--landscape .greedy-nav { min-width: 0; }
-.mount-landscape-frame,
+.masthead--landscape,
 .mount-landscape-sill {
   --plot-width: clamp(5.4rem, 21.6vw, 19.8rem);
   --frame-edge: clamp(8px, .85vw, 12px);
+  --ridge-width: calc(var(--frame-edge) + var(--plot-width));
   --wood: #bc926b;
   --wood-grain: #805837;
   --grain-stops: var(--wood) 0 2px, #a67c56 2px 3px,
@@ -103,11 +104,14 @@
     #c8a17c 6px 8px, var(--wood) 8px 11px, #9b714d 11px 12px;
   --vertical-grain: repeating-linear-gradient(90deg, var(--grain-stops));
 }
+.masthead--landscape::after {
+  left: 0;
+  right: var(--ridge-width);
+  width: auto;
+}
 .mount-landscape-frame {
-  position: relative;
-  z-index: 1;
   align-self: flex-end;
-  flex: 0 0 calc(var(--frame-edge) + var(--plot-width));
+  flex: 0 0 var(--ridge-width);
   padding-left: var(--frame-edge);
   background: var(--vertical-grain);
 }
@@ -116,7 +120,7 @@
   top: var(--masthead-offset, #{$masthead-height});
   z-index: 19;
   margin-left: auto;
-  width: calc(var(--plot-width) + var(--frame-edge));
+  width: var(--ridge-width);
   height: var(--frame-edge);
   background: repeating-linear-gradient(0deg, var(--grain-stops));
 
