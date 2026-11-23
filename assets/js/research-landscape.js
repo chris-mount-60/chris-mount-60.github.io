@@ -12,13 +12,17 @@
     return Math.sqrt(-2 * Math.log1p(-Math.random())) * Math.cos(2 * Math.PI * Math.random());
   }
 
-  // First passage from x to zero occurs at x²/Z². Given that time, the
+  // With downward drift, first passage has an inverse Gaussian law. Given that time, the
   // pre-hit path is a BES(3) bridge: the radius of a 3D bridge to the origin.
   function killedRidge(steps) {
     const scale = 84;
     const startY = (layers[0].baseline + layers[1].baseline) / 2;
     const x = (height - startY) / scale;
-    const hit = (x / gaussian()) ** 2;
+    const downwardDrift = 0.45;
+    const mean = x / downwardDrift;
+    const q = gaussian() ** 2 / (2 * x * downwardDrift);
+    const ratio = 1 / (1 + q + Math.sqrt(q * (2 + q)));
+    const hit = Math.random() < 1 / (1 + ratio) ? mean * ratio : mean / ratio;
     const position = [x, 0, 0];
     const ridge = [[0, height - scale * x]];
     for (let i = 1; i <= steps; i++) {
