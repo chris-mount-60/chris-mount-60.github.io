@@ -15,7 +15,9 @@
   // First passage from x to zero occurs at x²/Z². Given that time, the
   // pre-hit path is a BES(3) bridge: the radius of a 3D bridge to the origin.
   function killedRidge(steps) {
-    const x = 0.72, scale = 84;
+    const scale = 84;
+    const startY = (layers[0].baseline + layers[1].baseline) / 2;
+    const x = (height - startY) / scale;
     const hit = (x / gaussian()) ** 2;
     const position = [x, 0, 0];
     const ridge = [[0, height - scale * x]];
@@ -48,7 +50,6 @@
   }
 
   function label(action) {
-    button.title = action;
     button.setAttribute("aria-label", action);
   }
 
