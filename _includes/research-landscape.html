@@ -1,18 +1,24 @@
 <div class="mount-landscape-frame">
   <button class="mount-landscape" id="generate-ridge" type="button"
-          aria-label="Generate a reflected Brownian mountain ridge"
-          title="Click to generate a new mountain ridge">
+          aria-label="Draw the distant sticky Brownian ridge"
+          title="Draw the distant sticky Brownian ridge">
     <img id="mount-sunset" src="{{ '/images/sunrise.jpg' | relative_url }}"
          alt="">
     <svg viewBox="0 0 960 400" preserveAspectRatio="none" aria-hidden="true">
       <defs>
         <linearGradient id="mount-fill" x1="0" y1="274" x2="0" y2="400" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#000000"/>
-          <stop offset="1" stop-color="#180925"/>
+          <stop offset="0" stop-color="#747781"/>
+          <stop offset="1" stop-color="#898789"/>
+        </linearGradient>
+        <linearGradient id="near-fill" x2="0" y2="1">
+          <stop offset="0" stop-color="#4e6258"/>
+          <stop offset="1" stop-color="#3f514a"/>
         </linearGradient>
       </defs>
       <path id="mount-area" fill="url(#mount-fill)"/>
       <path id="mount-ridge" fill="none" stroke="url(#mount-fill)" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+      <path id="near-area" fill="url(#near-fill)"/>
+      <path id="near-ridge" fill="none" stroke="#46594e" stroke-width="1" vector-effect="non-scaling-stroke"/>
     </svg>
   </button>
 </div>

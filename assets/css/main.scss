@@ -97,11 +97,11 @@
   --plot-width: clamp(5.4rem, 21.6vw, 19.8rem);
   --frame-edge: clamp(8px, .85vw, 12px);
   --ridge-width: calc(var(--frame-edge) + var(--plot-width));
-  --wood: #bc926b;
-  --wood-grain: #805837;
-  --grain-stops: var(--wood) 0 2px, #a67c56 2px 3px,
+  --wood: #96704f;
+  --wood-grain: #694831;
+  --grain-stops: var(--wood) 0 2px, #835d40 2px 3px,
     var(--wood) 3px 5px, var(--wood-grain) 5px 6px,
-    #c8a17c 6px 8px, var(--wood) 8px 11px, #9b714d 11px 12px;
+    #aa8160 6px 8px, var(--wood) 8px 11px, #755238 11px 12px;
   --vertical-grain: repeating-linear-gradient(90deg, var(--grain-stops));
 }
 .masthead--landscape::after {

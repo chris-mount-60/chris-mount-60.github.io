@@ -1,56 +1,69 @@
 (() => {
-  const landscape = document.getElementById("generate-ridge");
-  const ridge = document.getElementById("mount-ridge");
-  const area = document.getElementById("mount-area");
+  const button = document.getElementById("generate-ridge");
+  const layers = [
+    { id: "mount", steps: 96, mu: 0.18, baseline: 355, relief: 130 },
+    { id: "near", steps: 480, mu: 0.70, baseline: 395, relief: 89 }
+  ];
+  const width = 960, height = 400;
+  let layer = -1, frame = null, points = [], started = 0;
 
-  const width = 960, height = 400, steps = 960, duration = 6000;
-  let points = [], started = 0, frame = null;
-
-  function sampleRidge() {
-    let brownian = 0, peak = 0;
-    const samples = [[0, 0]];
-    for (let i = 1; i <= steps; i++) {
-      const normal = Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random());
-      const next = brownian + normal / Math.sqrt(steps);
-      if (brownian * next < 0) {
-        const crossing = i - 1 + brownian / (brownian - next);
-        samples.push([width * crossing / steps, 0]);
-      }
-      samples.push([width * i / steps, Math.abs(next)]);
-      peak = Math.max(peak, Math.abs(next));
-      brownian = next;
-    }
-    return samples.map(([x, y]) => [x, height - 0.315 * height * y / (peak || 1)]);
+  // One physical-time step of sticky reflected BM, with clock t + mu * regulator.
+  function step(x, dt, mu) {
+    const normal = Math.sqrt(-2 * Math.log1p(-Math.random())) * Math.cos(2 * Math.PI * Math.random());
+    const h = Math.abs(normal), m = Math.sqrt(dt) * h;
+    const exponential = -Math.log1p(-Math.random());
+    if (m <= x) return x - 2 * m + Math.sqrt(m * m + 2 * dt * exponential);
+    const gain = 2 * (m - x) * (m + x) /
+      (2 * x + mu * h * h + h * Math.sqrt(mu * mu * h * h + 4 * (dt + mu * x)));
+    const c = x + gain, t = (c / h) ** 2;
+    if (Math.random() < mu * c / (mu * c + 2 * t)) return 0;
+    return 2 * t * exponential / (Math.sqrt(c * c + 2 * t * exponential) + c);
   }
 
-  function draw(fraction) {
-    const commands = [];
-    let lastX = 0;
-    for (const [x, y] of points) {
-      if (x > fraction * width) break;
-      commands.push((commands.length ? "L" : "M") + x.toFixed(2) + "," + y.toFixed(2));
-      lastX = x;
-    }
-    const line = commands.join(" ");
-    ridge.setAttribute("d", line);
-    area.setAttribute("d", line + " L" + lastX + "," + height + " L0," + height + " Z");
+  function label(action) {
+    button.title = action;
+    button.setAttribute("aria-label", action);
+  }
+
+  function draw(progress) {
+    const { id } = layers[layer];
+    const end = Math.floor(progress * (points.length - 1));
+    const line = "M" + points.slice(0, end + 1).join(" L");
+    document.getElementById(id + "-ridge").setAttribute("d", line);
+    document.getElementById(id + "-area").setAttribute("d", line + " V" + height + " H0 Z");
+  }
+
+  function finish() {
+    draw(1);
+    frame = null;
+    label(layer === 0 ? "Draw the nearer sticky Brownian ridge" : "Start a new mountain scene");
   }
 
   function advance(now) {
-    const progress = Math.min(1, (now - started) / duration);
+    const progress = (now - started) / 6000;
+    if (progress >= 1) return finish();
     draw(progress);
-    frame = progress < 1 ? requestAnimationFrame(advance) : null;
+    frame = requestAnimationFrame(advance);
   }
 
-  landscape.addEventListener("click", () => {
-    if (frame !== null) cancelAnimationFrame(frame);
-    frame = null;
-    points = sampleRidge();
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      draw(1);
+  button.addEventListener("click", () => {
+    if (frame !== null) {
+      cancelAnimationFrame(frame);
+      finish();
       return;
     }
+    layer = (layer + 1) % layers.length;
+    if (layer === 0) {
+      for (const id of ["near-area", "near-ridge"]) document.getElementById(id).removeAttribute("d");
+    }
+    const { steps, mu, baseline, relief } = layers[layer];
+    const samples = [0];
+    for (let i = 1; i <= steps; i++) samples.push(step(samples[i - 1], 1 / steps, mu));
+    const peak = Math.max(0.5, ...samples);
+    points = samples.map((y, i) => (i * width / steps).toFixed(2) + "," + (baseline - relief * y / peak).toFixed(2));
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return finish();
     draw(0);
+    label("Finish drawing this ridge");
     started = performance.now();
     frame = requestAnimationFrame(advance);
   });
