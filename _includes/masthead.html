@@ -44,23 +44,39 @@
   const menus = document.querySelectorAll(".nav-disclosure");
   for (const menu of menus) {
     const item = menu.parentElement;
+    const summary = menu.querySelector("summary");
+    let openedOnHover = false;
+
+    function closeMenu() {
+      menu.open = false;
+      openedOnHover = false;
+    }
+
     item.addEventListener("pointerenter", event => {
-      if (event.pointerType === "mouse") menu.open = true;
+      if (event.pointerType === "mouse" && !item.closest(".hidden-links") && !menu.open) {
+        menu.open = true;
+        openedOnHover = true;
+      }
     });
     item.addEventListener("pointerleave", event => {
-      if (event.pointerType === "mouse" && !item.contains(document.activeElement)) menu.open = false;
+      if (event.pointerType === "mouse" && !item.contains(document.activeElement)) closeMenu();
+    });
+    summary.addEventListener("click", event => {
+      // A mouse click on a menu already opened by hover should keep it open.
+      if (event.pointerType === "mouse" && openedOnHover && menu.open) event.preventDefault();
+      openedOnHover = false;
     });
     item.addEventListener("focusout", event => {
-      if (!item.contains(event.relatedTarget)) menu.open = false;
+      if (!item.contains(event.relatedTarget)) closeMenu();
     });
     item.addEventListener("keydown", event => {
       if (event.key === "Escape" && menu.open) {
-        menu.open = false;
-        menu.querySelector("summary").focus();
+        closeMenu();
+        summary.focus();
       }
     });
     document.addEventListener("pointerdown", event => {
-      if (!item.contains(event.target)) menu.open = false;
+      if (!item.contains(event.target)) closeMenu();
     });
   }
 })();

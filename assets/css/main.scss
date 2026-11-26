@@ -210,11 +210,10 @@
   li { display: block; font-weight: normal; }
   li a { display: block; padding: .45rem .75rem; margin: 0; }
 }
-.greedy-nav .hidden-links .nav-disclosure { position: static; }
-.greedy-nav .hidden-links li:has(.nav-disclosure[open]) {
+.greedy-nav .hidden-links > li:has(.nav-disclosure) {
   .nav-disclosure { display: block; }
-  .nav-disclosure summary { position: absolute; top: .25rem; right: 0; }
-  > a { padding-right: 1.6rem; }
+  .nav-disclosure summary { position: absolute; top: 0; right: 0; }
+  > a { padding-right: 2rem; }
   .nav-children { position: static; padding-left: .5rem; border: 0; }
 }
 
